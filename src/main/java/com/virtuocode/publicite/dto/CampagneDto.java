@@ -28,8 +28,8 @@ public class CampagneDto {
     private LocalDate dateFin;
     @Column(precision = 10, scale = 2)
     private BigDecimal budget;    private String objectif;
-    private User user;
-    private Emplacement emplacement;
+    private Long userId;
+    private Long emplacementId;
 
 
 
@@ -39,8 +39,8 @@ public class CampagneDto {
         this.dateFin = canpagne.getDateFin();
         this.budget = canpagne.getBudget();
         this.objectif = canpagne.getObjectif();
-        this.user=canpagne.getUser();
-        this.emplacement =canpagne.getEmplacement();
+        this.userId=canpagne.getUser().getId();
+        this.emplacementId =canpagne.getEmplacement().getId();
     }
 
     public Campagne toEntity(){

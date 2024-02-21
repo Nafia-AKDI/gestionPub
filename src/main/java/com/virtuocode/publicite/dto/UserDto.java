@@ -25,6 +25,7 @@ public class UserDto {
     private String nom;
     private String email;
     private String motDePasse;
+    private List<CampagneDto> campagnes;
 
 
     public UserDto(User user) {

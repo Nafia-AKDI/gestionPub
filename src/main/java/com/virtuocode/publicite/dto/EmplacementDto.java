@@ -26,6 +26,7 @@ public class EmplacementDto {
     private String format;
     @Column(precision = 10, scale = 2)
     private BigDecimal prix;
+    private List<CampagneDto> campagnes;
 
     public EmplacementDto(Emplacement emplacement) {
         this.id = emplacement.getId();

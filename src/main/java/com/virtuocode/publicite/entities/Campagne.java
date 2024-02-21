@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @Builder
 @EqualsAndHashCode
 public class Campagne {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,10 +27,10 @@ public class Campagne {
     @Column(precision = 10, scale = 2)
     private BigDecimal budget;
     private String objectif;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "emplacement_id",nullable = false)
     private Emplacement emplacement;
 
@@ -42,8 +44,13 @@ public class Campagne {
         this.dateFin = campagneDto.getDateFin();
         this.budget = campagneDto.getBudget();
         this.objectif = campagneDto.getObjectif();
-        this.user= campagneDto.getUser();
-        this.emplacement =campagneDto.getEmplacement();
+        this.user = User.builder()
+                .id(campagneDto.getUserId())
+                .build();
+        // Supposons que vous avez une entité User avec un constructeur prenant l'ID en paramètre
+        this.emplacement = Emplacement.builder()
+                .id(campagneDto.getEmplacementId())
+                .build();
     }
 
 }

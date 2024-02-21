@@ -26,6 +26,10 @@ public class Emplacement {
     @Column(precision = 10, scale = 2)
     private BigDecimal prix;
 
+    @OneToMany(mappedBy = "emplacement", cascade = CascadeType.ALL) // Utilisez le nom de la propriété dans Campagne
+    private List<Campagne> campagnes;
+
+
 
 
     public EmplacementDto toDto(){

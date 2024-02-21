@@ -24,6 +24,9 @@ public class User {
     private String email;
     private String motDePasse;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // Utilisez le nom de la propriété dans Campagne
+    private List<Campagne> campagnes;
+
 
     public UserDto toDto(){
         return new UserDto(this);

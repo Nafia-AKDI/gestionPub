@@ -2,6 +2,7 @@ package com.virtuocode.publicite.services;
 
 import com.virtuocode.publicite.dto.CampagneDto;
 import com.virtuocode.publicite.entities.Campagne;
+import com.virtuocode.publicite.entities.User;
 import com.virtuocode.publicite.repositories.CampagneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,18 +48,22 @@ public class CampagneService {
                 .collect(Collectors.toList()); // Collecter les CampagneDto dans une liste
     }
 
-    public CampagneDto updateCampagne(Long id, CampagneDto emplacementDto) {
+    public CampagneDto updateCampagne(Long id, CampagneDto campagneDto) {
         // Vérifier si l'emplacement avec l'ID spécifié existe
         Campagne existingCampagne = emplacementRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Campagne non trouvé avec l'ID: " + id));
 
         // Mettre à jour les champs de l'emplacement existant avec les nouvelles données
-        existingCampagne.setNom(emplacementDto.getNom());
-        existingCampagne.setBudget(emplacementDto.getBudget());
-        existingCampagne.setDateDebut(emplacementDto.getDateFin());
-        existingCampagne.setDateFin(emplacementDto.getDateFin());
-        existingCampagne.setObjectif(emplacementDto.getObjectif());
-        existingCampagne.setUser(emplacementDto.getUser());
+
+        existingCampagne.setNom(campagneDto.getNom());
+        existingCampagne.setBudget(campagneDto.getBudget());
+        existingCampagne.setDateDebut(campagneDto.getDateFin());
+        existingCampagne.setDateFin(campagneDto.getDateFin());
+        existingCampagne.setObjectif(campagneDto.getObjectif());
+        existingCampagne.setUser(User.builder()
+                .id(campagneDto.getUserId())
+                .build());
+
 
         // Enregistrer l'emplacement mis à jour dans la base de données
         Campagne updatedCampagne = emplacementRepository.save(existingCampagne);
