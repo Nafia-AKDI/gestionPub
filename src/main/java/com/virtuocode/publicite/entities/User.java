@@ -1,11 +1,9 @@
 package com.virtuocode.publicite.entities;
-import com.virtuocode.publicite.dto.CampagneDto;
+
 import com.virtuocode.publicite.dto.UserDto;
-import lombok.AllArgsConstructor;
-import lombok.*;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
+import lombok.*;
+
 import java.util.List;
 
 @Entity(name = "users")
@@ -14,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +25,7 @@ public class User {
     private List<Campagne> campagnes;
 
 
-    public UserDto toDto(){
+    public UserDto toDto() {
         return new UserDto(this);
     }
 
@@ -37,6 +34,10 @@ public class User {
         this.nom = userDto.getNom();
         this.email = userDto.getEmail();
         this.motDePasse = userDto.getMotDePasse();
+    }
+
+    public User(Long id) {
+        this.id = id;
     }
 
 }

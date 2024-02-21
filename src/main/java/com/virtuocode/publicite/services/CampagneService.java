@@ -1,59 +1,71 @@
 package com.virtuocode.publicite.services;
 
 import com.virtuocode.publicite.dto.CampagneDto;
+import com.virtuocode.publicite.dto.EmplacementDto;
+import com.virtuocode.publicite.dto.UserDto;
 import com.virtuocode.publicite.entities.Campagne;
 import com.virtuocode.publicite.entities.User;
 import com.virtuocode.publicite.repositories.CampagneRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class CampagneService {
 
     @Autowired
-    CampagneRepository emplacementRepository;
+    CampagneRepository campagneRepository;
+
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private EmplacementService emplacementService;
+
 
     public CampagneDto getById(Long id) {
-        Optional<Campagne> optionalCampagne = emplacementRepository.findById(id);
+        Optional<Campagne> optionalCampagne = campagneRepository.findById(id);
+        log.info("camgne found");
         if (optionalCampagne.isPresent()) {
-            Campagne emplacement = optionalCampagne.get();
-            return new CampagneDto(emplacement);
+            Campagne campagne = optionalCampagne.get();
+            return new CampagneDto(campagne);
         } else {
+            log.error("error 1");
             throw new RuntimeException("Campagne non trouvé avec l'ID: " + id);
         }
     }
 
-    public CampagneDto save(CampagneDto emplacementDto) {
-        Campagne newCampagne = new Campagne(emplacementDto);
+    public CampagneDto save(CampagneDto campagneDto) {
+        Campagne newCampagne = new Campagne(campagneDto);
+        //log.info(String.valueOf(campagneDto.getUserId())+"jjjjjjjjjjjjjjjjjjjjjjjjjjj");
+        Campagne savedCampagne = campagneRepository.save(newCampagne);
+        return new CampagneDto(savedCampagne);
 
-        try {
-            Campagne savedCampagne = emplacementRepository.save(newCampagne);
-            return new CampagneDto(savedCampagne);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erreur lors de l'enregistrement de l'emplacement");
-        }
+//        try {
+//            Campagne savedCampagne = campagneRepository.save(newCampagne);
+//            return new CampagneDto(savedCampagne);
+//        } catch (Exception e) {
+//            throw new RuntimeException("Erreur lors de l'enregistrement de l'campagne");
+//        }
     }
 
     public List<CampagneDto> getAll() {
-        List<Campagne> emplacements = emplacementRepository.findAll();
-        return emplacements.stream()
+        List<Campagne> campagnes = campagneRepository.findAll();
+        return campagnes.stream()
                 .map(CampagneDto::new) // Convertir chaque Campagne en CampagneDto
                 .collect(Collectors.toList()); // Collecter les CampagneDto dans une liste
     }
 
     public CampagneDto updateCampagne(Long id, CampagneDto campagneDto) {
-        // Vérifier si l'emplacement avec l'ID spécifié existe
-        Campagne existingCampagne = emplacementRepository.findById(id)
+        // Vérifier si l'campagne avec l'ID spécifié existe
+        Campagne existingCampagne = campagneRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Campagne non trouvé avec l'ID: " + id));
 
-        // Mettre à jour les champs de l'emplacement existant avec les nouvelles données
+        // Mettre à jour les champs de l'campagne existant avec les nouvelles données
 
         existingCampagne.setNom(campagneDto.getNom());
         existingCampagne.setBudget(campagneDto.getBudget());
@@ -61,24 +73,24 @@ public class CampagneService {
         existingCampagne.setDateFin(campagneDto.getDateFin());
         existingCampagne.setObjectif(campagneDto.getObjectif());
         existingCampagne.setUser(User.builder()
-                .id(campagneDto.getUserId())
+                .id(campagneDto.getUser().getId())
                 .build());
 
 
-        // Enregistrer l'emplacement mis à jour dans la base de données
-        Campagne updatedCampagne = emplacementRepository.save(existingCampagne);
+        // Enregistrer l'campagne mis à jour dans la base de données
+        Campagne updatedCampagne = campagneRepository.save(existingCampagne);
 
-        // Retourner l'objet CampagneDto correspondant à l'emplacement mis à jour
+        // Retourner l'objet CampagneDto correspondant à l'campagne mis à jour
         return new CampagneDto(updatedCampagne);
     }
 
 
     public void deleteCampagne(Long id) {
-        Campagne emplacement = emplacementRepository.findById(id)
+        Campagne campagne = campagneRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Campagne non trouvé avec l'ID: " + id));
 
-        // Supprimer l'emplacement de la base de données
-        emplacementRepository.delete(emplacement);
+        // Supprimer l'campagne de la base de données
+        campagneRepository.delete(campagne);
     }
 
 }

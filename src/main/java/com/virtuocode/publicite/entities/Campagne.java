@@ -1,9 +1,15 @@
 package com.virtuocode.publicite.entities;
 import com.virtuocode.publicite.dto.CampagneDto;
+import com.virtuocode.publicite.dto.EmplacementDto;
+import com.virtuocode.publicite.dto.UserDto;
+import com.virtuocode.publicite.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.*;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -15,6 +21,7 @@ import java.time.LocalDate;
 @Builder
 @EqualsAndHashCode
 public class Campagne {
+
 
 
     @Id
@@ -44,13 +51,10 @@ public class Campagne {
         this.dateFin = campagneDto.getDateFin();
         this.budget = campagneDto.getBudget();
         this.objectif = campagneDto.getObjectif();
-        this.user = User.builder()
-                .id(campagneDto.getUserId())
-                .build();
-        // Supposons que vous avez une entité User avec un constructeur prenant l'ID en paramètre
-        this.emplacement = Emplacement.builder()
-                .id(campagneDto.getEmplacementId())
-                .build();
+        this.user = new User(campagneDto.getUser()); // Convertir l'entité User en DTO
+        this.emplacement = new Emplacement(campagneDto.getEmplacement()); // Convertir l'entité Emplacement en DTO
+
+
     }
 
 }

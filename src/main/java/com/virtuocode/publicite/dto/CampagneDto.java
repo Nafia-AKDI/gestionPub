@@ -19,8 +19,7 @@ import java.time.LocalDate;
 @Builder
 @EqualsAndHashCode
 public class CampagneDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String nom;
@@ -28,19 +27,17 @@ public class CampagneDto {
     private LocalDate dateFin;
     @Column(precision = 10, scale = 2)
     private BigDecimal budget;    private String objectif;
-    private Long userId;
-    private Long emplacementId;
+    private UserDto user; // Utiliser un objet UserDto au lieu d'un champ userId
+    private EmplacementDto emplacement; // Utiliser un objet EmplacementDto au lieu d'un champ emplacementId
 
-
-
-    public CampagneDto(Campagne canpagne) {
-        this.id = canpagne.getId();
-        this.dateDebut = canpagne.getDateDebut();
-        this.dateFin = canpagne.getDateFin();
-        this.budget = canpagne.getBudget();
-        this.objectif = canpagne.getObjectif();
-        this.userId=canpagne.getUser().getId();
-        this.emplacementId =canpagne.getEmplacement().getId();
+    public CampagneDto(Campagne campagne) {
+        this.id = campagne.getId();
+        this.dateDebut = campagne.getDateDebut();
+        this.dateFin = campagne.getDateFin();
+        this.budget = campagne.getBudget();
+        this.objectif = campagne.getObjectif();
+        this.user = new UserDto(campagne.getUser()); // Convertir l'entité User en DTO
+        this.emplacement = new EmplacementDto(campagne.getEmplacement()); // Convertir l'entité Emplacement en DTO
     }
 
     public Campagne toEntity(){
