@@ -25,19 +25,15 @@ public class User {
     private List<Campagne> campagnes;
 
 
-    public UserDto toDto() {
-        return new UserDto(this);
-    }
+
 
     public User(UserDto userDto) {
         this.id = userDto.getId();
         this.nom = userDto.getNom();
         this.email = userDto.getEmail();
         this.motDePasse = userDto.getMotDePasse();
+
     }
 
-    public User(Long id) {
-        this.id = id;
-    }
 
 }

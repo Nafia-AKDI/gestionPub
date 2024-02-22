@@ -1,13 +1,12 @@
 package com.virtuocode.publicite.services;
 
+import com.virtuocode.publicite.Exeptions.campagne.CampagneNonTrouveeException;
+import com.virtuocode.publicite.Exeptions.campagne.EnregistrementCampagneException;
 import com.virtuocode.publicite.dto.CampagneDto;
-import com.virtuocode.publicite.dto.EmplacementDto;
-import com.virtuocode.publicite.dto.UserDto;
 import com.virtuocode.publicite.entities.Campagne;
 import com.virtuocode.publicite.entities.User;
 import com.virtuocode.publicite.repositories.CampagneRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +17,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CampagneService {
 
-    @Autowired
-    CampagneRepository campagneRepository;
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private EmplacementService emplacementService;
+    private final CampagneRepository campagneRepository;
 
+    public CampagneService(CampagneRepository campagneRepository) {
+        this.campagneRepository = campagneRepository;
+    }
 
     public CampagneDto getById(Long id) {
         Optional<Campagne> optionalCampagne = campagneRepository.findById(id);
@@ -34,27 +31,23 @@ public class CampagneService {
             Campagne campagne = optionalCampagne.get();
             return new CampagneDto(campagne);
         } else {
-            log.error("error 1");
-            throw new RuntimeException("Campagne non trouvé avec l'ID: " + id);
+            throw new CampagneNonTrouveeException(id);
         }
     }
 
     public CampagneDto save(CampagneDto campagneDto) {
         Campagne newCampagne = new Campagne(campagneDto);
-        //log.info(String.valueOf(campagneDto.getUserId())+"jjjjjjjjjjjjjjjjjjjjjjjjjjj");
-        Campagne savedCampagne = campagneRepository.save(newCampagne);
-        return new CampagneDto(savedCampagne);
 
-//        try {
-//            Campagne savedCampagne = campagneRepository.save(newCampagne);
-//            return new CampagneDto(savedCampagne);
-//        } catch (Exception e) {
-//            throw new RuntimeException("Erreur lors de l'enregistrement de l'campagne");
-//        }
+        try {
+            Campagne savedCampagne = campagneRepository.save(newCampagne);
+            return new CampagneDto(savedCampagne);
+        } catch (Exception e) {
+            throw new EnregistrementCampagneException();
+        }
     }
 
     public List<CampagneDto> getAll() {
-        List<Campagne> campagnes = campagneRepository.findAll();
+        List<Campagne> campagnes =  campagneRepository.findAll();
         return campagnes.stream()
                 .map(CampagneDto::new) // Convertir chaque Campagne en CampagneDto
                 .collect(Collectors.toList()); // Collecter les CampagneDto dans une liste
@@ -63,7 +56,7 @@ public class CampagneService {
     public CampagneDto updateCampagne(Long id, CampagneDto campagneDto) {
         // Vérifier si l'campagne avec l'ID spécifié existe
         Campagne existingCampagne = campagneRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Campagne non trouvé avec l'ID: " + id));
+                .orElseThrow(() -> new CampagneNonTrouveeException(id));
 
         // Mettre à jour les champs de l'campagne existant avec les nouvelles données
 

@@ -1,13 +1,12 @@
 package com.virtuocode.publicite.services;
 
+import com.virtuocode.publicite.Exeptions.user.EnregistrementUserException;
+import com.virtuocode.publicite.Exeptions.user.UserNonTrouveeException;
 import com.virtuocode.publicite.dto.UserDto;
 import com.virtuocode.publicite.entities.User;
 import com.virtuocode.publicite.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,8 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public UserDto getById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
@@ -24,7 +26,7 @@ public class UserService {
             User user = optionalUser.get();
             return new UserDto(user);
         } else {
-            throw new RuntimeException("User non trouvé avec l'ID: " + id);
+            throw new UserNonTrouveeException(id);
         }
     }
 
@@ -36,7 +38,7 @@ public class UserService {
             return new UserDto(savedUser);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Erreur lors de l'enregistrement de l'user");
+            throw new EnregistrementUserException();
         }
     }
 

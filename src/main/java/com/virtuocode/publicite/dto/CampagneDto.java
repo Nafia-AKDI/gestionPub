@@ -17,7 +17,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
 public class CampagneDto {
 
     private Long id;
@@ -32,6 +31,7 @@ public class CampagneDto {
 
     public CampagneDto(Campagne campagne) {
         this.id = campagne.getId();
+        this.nom=campagne.getNom();
         this.dateDebut = campagne.getDateDebut();
         this.dateFin = campagne.getDateFin();
         this.budget = campagne.getBudget();

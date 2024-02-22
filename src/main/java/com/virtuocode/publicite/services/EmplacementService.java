@@ -1,13 +1,15 @@
 package com.virtuocode.publicite.services;
 
+import com.virtuocode.publicite.Exeptions.campagne.CampagneNonTrouveeException;
+import com.virtuocode.publicite.Exeptions.emplacement.EmplacementNonTrouveeException;
+import com.virtuocode.publicite.Exeptions.emplacement.EnregistrementEmplacementException;
 import com.virtuocode.publicite.dto.EmplacementDto;
 import com.virtuocode.publicite.entities.Emplacement;
+import com.virtuocode.publicite.repositories.CampagneRepository;
 import com.virtuocode.publicite.repositories.EmplacementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,8 +17,11 @@ import java.util.stream.Collectors;
 @Service
 public class EmplacementService {
 
-    @Autowired
-    EmplacementRepository emplacementRepository;
+    private final EmplacementRepository emplacementRepository;
+
+    public EmplacementService(EmplacementRepository emplacementRepository) {
+        this.emplacementRepository = emplacementRepository;
+    }
 
     public EmplacementDto getById(Long id) {
         Optional<Emplacement> optionalEmplacement = emplacementRepository.findById(id);
@@ -24,7 +29,7 @@ public class EmplacementService {
             Emplacement emplacement = optionalEmplacement.get();
             return new EmplacementDto(emplacement);
         } else {
-            throw new RuntimeException("Emplacement non trouvé avec l'ID: " + id);
+            throw new EmplacementNonTrouveeException(id);
         }
     }
 
@@ -36,7 +41,7 @@ public class EmplacementService {
             return new EmplacementDto(savedEmplacement);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Erreur lors de l'enregistrement de l'emplacement");
+            throw new EnregistrementEmplacementException();
         }
     }
 

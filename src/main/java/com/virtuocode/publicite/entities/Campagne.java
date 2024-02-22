@@ -34,10 +34,10 @@ public class Campagne {
     @Column(precision = 10, scale = 2)
     private BigDecimal budget;
     private String objectif;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "emplacement_id",nullable = false)
     private Emplacement emplacement;
 
@@ -46,7 +46,9 @@ public class Campagne {
     }
 
     public Campagne(CampagneDto campagneDto) {
+
         this.id = campagneDto.getId();
+        this.nom= campagneDto.getNom();
         this.dateDebut = campagneDto.getDateDebut();
         this.dateFin = campagneDto.getDateFin();
         this.budget = campagneDto.getBudget();

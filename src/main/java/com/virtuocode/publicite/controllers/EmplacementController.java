@@ -13,8 +13,11 @@ import java.util.List;
 @RequestMapping("/api/emplacements")
 public class EmplacementController {
 
-    @Autowired
-    EmplacementService emplacementService;
+    private final EmplacementService emplacementService;
+
+    public EmplacementController(EmplacementService emplacementService) {
+        this.emplacementService = emplacementService;
+    }
 
     @GetMapping
     public ResponseEntity<List<EmplacementDto>> getAll() {

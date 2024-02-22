@@ -32,8 +32,4 @@ public class UserDto {
         this.motDePasse = user.getMotDePasse();
 
     }
-
-    public User toEntity(){
-        return new User(this);
-    }
 }

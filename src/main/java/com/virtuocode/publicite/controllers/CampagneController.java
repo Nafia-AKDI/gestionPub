@@ -15,8 +15,11 @@ import java.util.List;
 @Slf4j
 public class CampagneController {
 
-    @Autowired
-    CampagneService campagneService;
+    private final CampagneService campagneService;
+
+    public CampagneController(CampagneService campagneService) {
+        this.campagneService = campagneService;
+    }
 
     @GetMapping
     public ResponseEntity<List<CampagneDto>> getAll() {
@@ -47,9 +50,5 @@ public class CampagneController {
         campagneService.deleteCampagne(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
-
-
 }
 
