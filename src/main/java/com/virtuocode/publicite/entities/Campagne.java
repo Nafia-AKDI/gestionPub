@@ -1,14 +1,8 @@
 package com.virtuocode.publicite.entities;
+
 import com.virtuocode.publicite.dto.CampagneDto;
-import com.virtuocode.publicite.dto.EmplacementDto;
-import com.virtuocode.publicite.dto.UserDto;
-import com.virtuocode.publicite.services.UserService;
-import lombok.AllArgsConstructor;
-import lombok.*;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,7 +15,6 @@ import java.time.LocalDate;
 @Builder
 @EqualsAndHashCode
 public class Campagne {
-
 
 
     @Id
@@ -38,17 +31,14 @@ public class Campagne {
     @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "emplacement_id",nullable = false)
+    @JoinColumn(name = "emplacement_id", nullable = false)
     private Emplacement emplacement;
 
-    public CampagneDto toDto(){
-        return new CampagneDto(this);
-    }
 
     public Campagne(CampagneDto campagneDto) {
 
         this.id = campagneDto.getId();
-        this.nom= campagneDto.getNom();
+        this.nom = campagneDto.getNom();
         this.dateDebut = campagneDto.getDateDebut();
         this.dateFin = campagneDto.getDateFin();
         this.budget = campagneDto.getBudget();

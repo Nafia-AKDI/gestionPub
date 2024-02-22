@@ -1,13 +1,10 @@
 package com.virtuocode.publicite.services;
 
-import com.virtuocode.publicite.Exeptions.campagne.CampagneNonTrouveeException;
 import com.virtuocode.publicite.Exeptions.emplacement.EmplacementNonTrouveeException;
 import com.virtuocode.publicite.Exeptions.emplacement.EnregistrementEmplacementException;
 import com.virtuocode.publicite.dto.EmplacementDto;
 import com.virtuocode.publicite.entities.Emplacement;
-import com.virtuocode.publicite.repositories.CampagneRepository;
 import com.virtuocode.publicite.repositories.EmplacementRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -70,19 +67,19 @@ public class EmplacementService {
         return new EmplacementDto(updatedEmplacement);
     }
 
-//    public void delete(Long id) {
+    //    public void delete(Long id) {
 //        emplacementRepository.deleteById(id);
 //    }
 //
 //    public Emplacement getEmplacementByWalletAddress(String walletAddress) {
 //        return emplacementRepository.findEmplacementByWalletAddress(walletAddress);
 //    }
-public void deleteEmplacement(Long id) {
-    Emplacement emplacement = emplacementRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Emplacement non trouvé avec l'ID: " + id));
+    public void deleteEmplacement(Long id) {
+        Emplacement emplacement = emplacementRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Emplacement non trouvé avec l'ID: " + id));
 
-    // Supprimer l'emplacement de la base de données
-    emplacementRepository.delete(emplacement);
-}
+        // Supprimer l'emplacement de la base de données
+        emplacementRepository.delete(emplacement);
+    }
 
 }

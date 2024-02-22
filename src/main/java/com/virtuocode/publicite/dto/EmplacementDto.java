@@ -34,9 +34,4 @@ public class EmplacementDto {
         this.prix = emplacement.getPrix();
     }
 
-    public Emplacement toEntity(){
-        return new Emplacement(this);
-    }
-
-
 }

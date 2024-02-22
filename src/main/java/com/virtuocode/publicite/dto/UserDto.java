@@ -18,7 +18,6 @@ public class UserDto {
     private String motDePasse;
     private List<CampagneDto> campagnes;
 
-
     public UserDto(User user) {
         this.id = user.getId();
         this.nom = user.getNom();

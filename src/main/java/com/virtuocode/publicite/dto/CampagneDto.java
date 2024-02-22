@@ -40,8 +40,4 @@ public class CampagneDto {
         this.emplacement = new EmplacementDto(campagne.getEmplacement()); // Convertir l'entité Emplacement en DTO
     }
 
-    public Campagne toEntity(){
-        return new Campagne(this);
-    }
-
 }

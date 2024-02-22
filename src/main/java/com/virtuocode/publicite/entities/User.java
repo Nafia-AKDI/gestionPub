@@ -25,8 +25,6 @@ public class User {
     private List<Campagne> campagnes;
 
 
-
-
     public User(UserDto userDto) {
         this.id = userDto.getId();
         this.nom = userDto.getNom();

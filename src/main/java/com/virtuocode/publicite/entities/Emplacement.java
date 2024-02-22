@@ -29,13 +29,6 @@ public class Emplacement {
     @OneToMany(mappedBy = "emplacement", cascade = CascadeType.ALL) // Utilisez le nom de la propriété dans Campagne
     private List<Campagne> campagnes;
 
-
-
-
-    public EmplacementDto toDto(){
-        return new EmplacementDto(this);
-    }
-
     public Emplacement(EmplacementDto emplacementDto) {
         this.id = emplacementDto.getId();
         this.nom = emplacementDto.getNom();
