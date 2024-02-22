@@ -1,8 +1,7 @@
 package com.virtuocode.publicite.controllers;
 
-import com.virtuocode.publicite.services.UserService;
 import com.virtuocode.publicite.dto.UserDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.virtuocode.publicite.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

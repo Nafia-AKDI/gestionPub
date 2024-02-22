@@ -1,8 +1,7 @@
 package com.virtuocode.publicite.controllers;
 
-import com.virtuocode.publicite.services.EmplacementService;
 import com.virtuocode.publicite.dto.EmplacementDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.virtuocode.publicite.services.EmplacementService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +47,6 @@ public class EmplacementController {
         emplacementService.deleteEmplacement(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 
 
 }

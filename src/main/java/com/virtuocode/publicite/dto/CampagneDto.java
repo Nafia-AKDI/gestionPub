@@ -1,12 +1,7 @@
 package com.virtuocode.publicite.dto;
 
 import com.virtuocode.publicite.entities.Campagne;
-import com.virtuocode.publicite.entities.Emplacement;
-import com.virtuocode.publicite.entities.User;
 import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.*;
 
 import java.math.BigDecimal;
