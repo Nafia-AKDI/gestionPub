@@ -4,6 +4,7 @@ import com.virtuocode.publicite.entities.User;
 import lombok.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -23,6 +24,10 @@ public class UserDto {
         this.nom = user.getNom();
         this.email = user.getEmail();
         this.motDePasse = user.getMotDePasse();
+//        this.campagnes = user.getCampagnes().stream()
+//                .map(CampagneDto::new) // Convertir chaque Campagne en CampagneDto
+//                .collect(Collectors.toList()); ;
 
     }
+
 }

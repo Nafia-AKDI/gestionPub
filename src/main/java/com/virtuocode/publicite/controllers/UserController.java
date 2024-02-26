@@ -2,6 +2,10 @@ package com.virtuocode.publicite.controllers;
 
 import com.virtuocode.publicite.dto.UserDto;
 import com.virtuocode.publicite.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(
+        name = "User controller",
+        description = "desc 11")
 public class UserController {
 
     private final UserService userService;
@@ -25,6 +32,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+
+    @Operation(summary = "Get User by ID", description = "Get user details by providing its ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Partner Configuration Retrieved"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
     public ResponseEntity<UserDto> getById(@PathVariable Long id) {
         UserDto userDto = userService.getById(id);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
@@ -47,8 +60,6 @@ public class UserController {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 
 
 }

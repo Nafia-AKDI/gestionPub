@@ -57,7 +57,7 @@ CREATE TABLE annonces_cibles(
     cible_id INTEGER REFERENCES annonces(id),
     annonce_id INTEGER REFERENCES cibles(id),
 
-    CONSTRAINT annonces_cibles_pkey PRIMARY KEY(annonce_id,cible_id)
+    CONSTRAINT annonces_cibles_pkey PRIMARY KEY(cible_id,annonce_id)
 
 );
 

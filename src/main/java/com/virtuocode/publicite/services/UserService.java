@@ -37,7 +37,6 @@ public class UserService {
             User savedUser = userRepository.save(newUser);
             return new UserDto(savedUser);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new EnregistrementUserException();
         }
     }
