@@ -1,10 +1,7 @@
 package com.virtuocode.publicite.services;
 
-import com.virtuocode.publicite.Exeptions.campagne.EnregistrementCampagneException;
 import com.virtuocode.publicite.dto.AnnonceDto;
-import com.virtuocode.publicite.dto.CampagneDto;
 import com.virtuocode.publicite.entities.Annonce;
-import com.virtuocode.publicite.entities.Campagne;
 import com.virtuocode.publicite.repositories.AnnonceRepository;
 import com.virtuocode.publicite.repositories.CibleRepository;
 import lombok.extern.slf4j.Slf4j;

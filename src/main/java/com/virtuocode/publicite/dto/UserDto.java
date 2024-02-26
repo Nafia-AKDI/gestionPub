@@ -4,7 +4,6 @@ import com.virtuocode.publicite.entities.User;
 import lombok.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

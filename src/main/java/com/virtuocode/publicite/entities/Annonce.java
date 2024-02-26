@@ -1,13 +1,9 @@
 package com.virtuocode.publicite.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.virtuocode.publicite.dto.AnnonceDto;
-import jakarta.persistence.Entity;
-
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,8 +34,8 @@ public class Annonce {
 
 
     @ManyToMany
-    @JoinTable(name = "annonces_cibles", joinColumns = { @JoinColumn(name = "annonce_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "cible_id") })
+    @JoinTable(name = "annonces_cibles", joinColumns = {@JoinColumn(name = "annonce_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "cible_id")})
     private Set<Cible> annoncesCiblee = new HashSet<>();
 
 
