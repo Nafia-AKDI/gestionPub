@@ -2,7 +2,6 @@ package com.virtuocode.publicite.controller;
 
 import com.virtuocode.publicite.controllers.UserController;
 import com.virtuocode.publicite.dto.UserDto;
-import com.virtuocode.publicite.entities.User;
 import com.virtuocode.publicite.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,14 +11,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 public class UserControllerTest {
 
@@ -36,10 +33,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetAll() {
-        List<UserDto> users = Arrays.asList(
-                UserDto.builder().id(1L).nom("nom1").motDePasse("password1").build(),
-                UserDto.builder().id(2L).nom("nom2").motDePasse("password2").build()
-        );
+        List<UserDto> users = Arrays.asList(UserDto.builder().id(1L).nom("nom1").motDePasse("password1").build(), UserDto.builder().id(2L).nom("nom2").motDePasse("password2").build());
 
         when(userService.getAll()).thenReturn(users);
 

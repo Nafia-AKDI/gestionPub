@@ -12,15 +12,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 public class UserServiceTest {
     @Mock
@@ -102,10 +100,7 @@ public class UserServiceTest {
     public void testGetAllUsers() {
         // Création d'une liste d'utilisateurs fictifs pour simuler les données de la base de données
 
-        List<User> userList = Arrays.asList(
-                User.builder().id(1L).nom("nom1").motDePasse("password1").build(),
-                User.builder().id(2L).nom("nom2").motDePasse("password2").build()
-        );
+        List<User> userList = Arrays.asList(User.builder().id(1L).nom("nom1").motDePasse("password1").build(), User.builder().id(2L).nom("nom2").motDePasse("password2").build());
 
         // Définir le comportement du mock UserRepository lorsque la méthode findAll est appelée
         when(userRepository.findAll()).thenReturn(userList);
@@ -132,7 +127,7 @@ public class UserServiceTest {
         existingUser.setEmail("john@example.com");
         existingUser.setMotDePasse("oldPassword");
 
-        User updatedUser= new User();
+        User updatedUser = new User();
         updatedUser.setNom("JohnUpdated");
         updatedUser.setEmail("john.updated@example.com");
         updatedUser.setMotDePasse("newPassword");
