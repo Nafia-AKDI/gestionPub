@@ -60,8 +60,8 @@ CREATE TABLE public.annonces
 
 CREATE TABLE annonces_cibles
 (
-    cible_id   INTEGER REFERENCES annonces (id),
-    annonce_id INTEGER REFERENCES cibles (id),
+    cible_id   INTEGER REFERENCES cibles (id),
+    annonce_id INTEGER REFERENCES annonces (id),
 
     CONSTRAINT annonces_cibles_pkey PRIMARY KEY (cible_id, annonce_id)
 

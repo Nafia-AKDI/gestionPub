@@ -51,7 +51,7 @@ public class UserService {
     public UserDto updateUser(Long id, UserDto userDto) {
         // Vérifier si l'user avec l'ID spécifié existe
         User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User non trouvé avec l'ID: " + id));
+                .orElseThrow(() -> new UserNonTrouveeException(id));
 
         // Mettre à jour les champs de l'user existant avec les nouvelles données
         existingUser.setNom(userDto.getNom());
@@ -67,7 +67,7 @@ public class UserService {
 
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User non trouvé avec l'ID: " + id));
+                .orElseThrow(() ->  new UserNonTrouveeException(id));
 
         // Supprimer l'user de la base de données
         userRepository.delete(user);
