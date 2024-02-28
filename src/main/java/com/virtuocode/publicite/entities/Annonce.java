@@ -1,12 +1,14 @@
 package com.virtuocode.publicite.entities;
 
 import com.virtuocode.publicite.dto.AnnonceDto;
+import com.virtuocode.publicite.dto.CibleDto;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity(name = "annonces")
@@ -59,6 +61,8 @@ public class Annonce {
         this.dateFin = annonceDto.getDateFin();
         this.description = annonceDto.getDescription();
         this.lienImage = annonceDto.getLienImage();
-        annoncesCiblee = annonceDto.getAnnoncesCiblee();
+        annoncesCiblee = annonceDto.getAnnoncesCiblee().stream()
+                .map(Cible::new)
+                .collect(Collectors.toSet());
     }
 }

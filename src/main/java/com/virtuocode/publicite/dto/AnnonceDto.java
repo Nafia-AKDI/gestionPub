@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -27,7 +28,7 @@ public class AnnonceDto {
 
     private String lienImage;
 
-    private Set<Cible> annoncesCiblee = new HashSet<>();
+    private Set<CibleDto> annoncesCiblee = new HashSet<>();
 
     public AnnonceDto(Annonce annonce) {
         this.id = annonce.getId();
@@ -36,6 +37,8 @@ public class AnnonceDto {
         this.dateFin = annonce.getDateFin();
         this.description = annonce.getDescription();
         this.lienImage = annonce.getLienImage();
-        annoncesCiblee = annonce.getAnnoncesCiblee();
+        annoncesCiblee = annonce.getAnnoncesCiblee().stream()
+                .map(CibleDto::new)
+                .collect(Collectors.toSet());
     }
 }
